@@ -77,8 +77,7 @@ jobs:
       run: |
         EMBED_LTO_BITCODE=1 CHANNEL="release" ./y.sh cargo build --release --manifest-path tests/hello-world/Cargo.toml
         call_found=$(objdump -dj .text tests/hello-world/target/release/hello_world | grep -c "call .*mylib.*my_func" ) ||:
-        echo $call_found
-        if [ $call_found -gt 0 ] then 
+        if [ $call_found -gt 0 ]; then
           echo "ERROR: call my_func found in asm"
           echo "Test is done with LTO enabled, hence inlining should occur across crates"
           exit 1
